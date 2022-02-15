@@ -1,0 +1,160 @@
+<template>
+  <div class="editPopup" id="editPopup">
+        <div class="editPopupInner">
+            <div class="formContainer">
+                <div class="closeButtonContainer">
+                    <button class="closeButton" onclick="editForm.closeForm()">
+                        <img src="images/x.svg" alt="">
+                    </button>
+                </div>
+                <form method="PUT" action="https://akademija.teltonika.lt/api4/index.php/cities/0" class="editForm" id="editForm">
+                    <h2 id="formHeader">PRIDĖTI ŠALĮ</h2>
+                    <fieldset>
+                        <legend>Pavadinimas</legend>
+                        <input type="text" name="name">
+                    </fieldset>
+                    <fieldset>
+                        <legend>Užimamas plotas</legend>
+                        <input type="text" name="area">
+                    </fieldset>
+                    <fieldset>
+                        <legend>Gyventojų skaičius</legend>
+                        <input type="text" name="population">
+                    </fieldset>
+                    <fieldset>
+                        <legend>Miesto Pašto kodas</legend>
+                        <input type="text" name="calling_code">
+                    </fieldset>
+                    <div class="submitButtonContainer">
+                        <button type="button" class="submitButton" id="submitButton">SAUGOTI</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
+    /* form possisioning / outer style */
+    .editPopup{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: rgba(244,244,244,0.9);
+    }
+    .editPopupInner{
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+    .formContainer{
+        margin: 0 auto;
+
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px  rgba(0,0,0,0.2);
+    }
+    .editForm{
+        margin: 0px 46px 35px 46px;
+    }
+    /* header */
+    .editForm h2{
+        margin-top: 0px;
+        margin-bottom: 28px;
+
+        font-family: Oswald; 
+        font-size: 25px; 
+        font-style: normal; 
+        font-variant: normal; 
+        font-weight: 400; 
+        line-height: 37.05px; 
+        color: #5C5C5C;
+    }
+    /* buttons */
+    .closeButtonContainer{
+        width: 100%;
+        display: flex;
+        flex-direction: row-reverse;
+
+    }
+    .closeButton{
+        border: none;
+        background-color: transparent;
+        padding: 0px;
+        width: 64px;
+        height: 64px;
+        margin-bottom: -20px;
+
+        display: flex;
+        align-items: center;
+    }
+    .closeButton img{
+        margin: 0 auto;
+        width: 14px;
+        height: 14px;
+    }
+    .submitButtonContainer{
+        width: 100%;
+        display: flex;
+        flex-direction: row-reverse;
+    }
+    .submitButton{
+        margin-top: 28px;
+        width: 92px;
+        height: 42px;
+        border: none;
+        border-radius: 5px;
+        background-color: transparent;
+        box-shadow: 0px 0px 5px  rgba(0,0,0,0.2);
+        padding:2px 2px;
+
+        font-family: Oswald; 
+        font-size: 18px; 
+        font-style: normal; 
+        font-variant: normal; 
+        font-weight: 400; 
+        line-height: 26px; 
+        color: #969696;
+    }
+    /* fielset */
+    .editForm fieldset{
+        border-color: #969696;
+        border-width: 0.75px;
+        border-radius: 7px;
+
+        width: 374px;
+        height: 42px;
+        padding: 0px 5px 3.3px 0px;
+
+    }
+    .editForm fieldset{
+        margin-bottom: 15px;
+    }
+    .editForm fieldset:last-child{
+        margin-bottom: 0px;
+    }
+    .editForm legend{
+        margin-left: 29px;
+    }
+    /* inputs */
+    .editForm input{
+        width: calc(100% - 5px);
+        height: calc(100% - 2px);
+        border: none;
+        border-radius: 5px;
+        padding: 2px 5px;
+    }
+    .editForm input:focus{
+        outline: none;
+    }
+
+</style>
