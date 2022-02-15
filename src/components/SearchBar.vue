@@ -2,7 +2,7 @@
   <div class="searchBar">
         <div class="searchInput" id="searchClass">
             <input autocomplete="off" type="text" id="searchInput" onchange="table.display();">
-            <button onclick="table.display();"><img src="images/search.svg" alt=""></button>
+            <button onclick="table.display();"><img src="/images/search.svg" alt=""></button>
         </div>
         <div id="filterClass" class="filterInput" >
             <input autocomplete="off" type="date" id="dateInput" onchange="table.display();">
@@ -12,7 +12,7 @@
                 <option value="data" selected>DATA FILTER</option>
                 <option value="date">DATE CREATED FILTER</option>
             </select>
-            <img src="images/Vector 2.svg" alt="">
+            <img src="/images/Vector 2.svg" alt="">
         </div>
     </div>
 </template>

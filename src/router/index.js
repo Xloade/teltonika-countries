@@ -5,9 +5,10 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: '/countries/:page',
       name: 'countries',
-      component: Countries
+      component: Countries,
+      props: (route) => ({ page: route.params.page || 1 })
     },
   ]
 })

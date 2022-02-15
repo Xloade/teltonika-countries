@@ -3,23 +3,26 @@
         <table class="contentTable" id="contentTable">
             <thead>
                 <tr>
-                    <th>
-                        <div class="nameCollHeader">
-                            Pavadinimas
+                    <th v-for="(attribute, index) in attributes" :key="attribute.apiKey">
+                        <template v-if="index !== 0">
+                            {{attribute.collName}}
+                        </template>
+                        <div v-if="index === 0" class="nameCollHeader">
+                            {{attribute.collName}}
                             <div class="sortButtons" id="sortButtons">
-                                <button data-sort="asc" id="sortAscendingButton" onclick="sort(this);"><img src="images/Vector 2.2.svg" alt=""></button>
-                                <button data-sort="desc" id="sortDescendingButton" onclick="sort(this);"><img src="images/Vector 2.1.svg" alt=""></button>  
+                                <button data-sort="asc" id="sortAscendingButton" onclick="sort(this);"><img src="/images/Vector 2.2.svg" alt=""></button>
+                                <button data-sort="desc" id="sortDescendingButton" onclick="sort(this);"><img src="/images/Vector 2.1.svg" alt=""></button>  
                             </div>
                         </div>
-                        
                     </th>
-                    <th>Užimamas plotas</th>
-                    <th>Gyventojų skaičius</th>
-                    <th>Šalies tel. kodas</th>
-                    <th>Veiksmai</th>
                 </tr>
             </thead>
             <tbody>
+                <tr v-for="item in items" :key="item.id">
+                    <td v-for="attribute in attributes" :key="attribute.apiKey + item.id">
+                        {{item['attributes'][attribute.apiKey]}}
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -27,7 +30,7 @@
 
 <script>
 export default {
-
+    props:['items', 'attributes']
 }
 </script>
 

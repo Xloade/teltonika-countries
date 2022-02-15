@@ -4,7 +4,7 @@
             <div class="formContainer">
                 <div class="closeButtonContainer">
                     <button class="closeButton" onclick="editForm.closeForm()">
-                        <img src="images/x.svg" alt="">
+                        <img src="/images/x.svg" alt="">
                     </button>
                 </div>
                 <form method="PUT" action="https://akademija.teltonika.lt/api4/index.php/cities/0" class="editForm" id="editForm">
