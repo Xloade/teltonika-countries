@@ -2,14 +2,14 @@
   <whole-page-layout>
 
     <template #header>
-      <page-header headerName="Name" @clickAdd="showForm = true"/>
+      <page-header headerName="šalys" @clickAdd="showForm = true"/>
     </template>
 
     <template #body>
       <search-bar/>
-      <item-table :items="items" :attributes="attributes"/>
-      <pagination-row :links="paginationLinks"/>
-      <countries-form v-show="showForm"/>
+      <item-table :items="items" :attributes="attributes" @sort="(order) => this.order = order"/>
+      <pagination-row v-if="paginationLinks.length > 3" :links="paginationLinks" :currentProps="this.passProps"/>
+      <countries-form v-show="showForm" @close="this.showForm = false"/>
     </template>
 
   </whole-page-layout>
@@ -29,10 +29,11 @@ import { computed } from '@vue/runtime-core'
 
 export default {
   mixins:[TableViewMixin],
-  props: ['page'],
+  props: ['page','search', 'start_date', 'end_date'],
   data(){
     return{
       response : null,
+      order : null,
       attributes : [
         {apiKey: 'name', collName: 'pavadinimas'},
         {apiKey: 'area', collName: 'užimamas plotas'},
@@ -44,16 +45,30 @@ export default {
   computed:{
     items(){
       if(!this.response) return []
-      else return this.response['data']
+      else if(this.order !== null){
+        this.response['data'].sort((a, b) => {
+            if(a.attributes.name == b.attributes.name){
+              return 0
+            }
+            return a.attributes.name < b.attributes.name ? -1 : 1
+          })
+        if(this.order === 'desc'){
+          this.response['data'].reverse()
+        }
+      }
+      return this.response['data']
     },
     paginationLinks(){
       if(!this.response) return []
       else return this.response['meta']['links']
     },
+    passProps(){
+      return {page: this.page, search: this.search, start_date: this.start_date, end_date: this.end_date}
+    }
   },
   methods:{
     requestItems(){
-      this.axios.get('https://akademija.teltonika.lt/countries_api/api/countries', { params: {page: this.page}})
+      this.axios.get('https://akademija.teltonika.lt/countries_api/api/countries', { params: {page: this.page, search: this.search, start_date: this.start_date, end_date: this.end_date }})
         .then(response => this.response = response.data)
         .catch(error => alert(error.message))
     }

@@ -4,7 +4,7 @@
             <router-link 
                 v-for="(link, index) in links" :key='link.label' 
                 :class="[isFinite(link.label) ? 'pageButton' : 'paginationArrow', {'hidden':link.url == null} , {'selected' : link.active}]"
-                :to="{ name: 'countries', params:{ page: this.page(link.url) } }"
+                :to="{ name: this.$route.name, params:{ ...this.currentProps, page: this.page(link.url) } }"
             >
                 <img v-if="index==0 || index+1 == links.length" :src="index==0 ? '/images/Vector 2.1.svg':'/images/Vector 2.2.svg'">
                 <template v-else>
@@ -17,7 +17,7 @@
 
 <script>
 export default {
-    props: ['links'],
+    props: ['links', 'currentProps'],
     methods:{
         page(link){
             if(link === null) return 1

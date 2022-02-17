@@ -1,15 +1,16 @@
 <template>
   <div class="searchBar">
-        <div class="searchInput" id="searchClass">
-            <input autocomplete="off" type="text" id="searchInput" onchange="table.display();">
-            <button onclick="table.display();"><img src="/images/search.svg" alt=""></button>
+        <div  v-if="searchType == 'data'" class="searchInput" id="searchClass">
+            <input @change="submit()" v-model="search" autocomplete="off" type="text">
+            <button @click="submit()"><img src="/images/search.svg"></button>
         </div>
-        <div id="filterClass" class="filterInput" >
-            <input autocomplete="off" type="date" id="dateInput" onchange="table.display();">
+        <div v-else id="filterClass" class="filterInput" >
+            <input v-model="start_date" @change="submit()" autocomplete="off" type="text" placeholder="Start date" onfocus="this.type='date'">
+            <input v-model="end_date" @change="submit()" autocomplete="off" type="text" placeholder="End date" onfocus="this.type='date'">
         </div>
         <div class="searchTypeSelectContainer">
-            <select autocomplete="off" class="searchTypeSelect" id="searchTypeSelect" onChange="searchTypeChange(this);">
-                <option value="data" selected>DATA FILTER</option>
+            <select v-model="searchType" autocomplete="off" class="searchTypeSelect" @change="emptyInputs()">
+                <option value="data">DATA FILTER</option>
                 <option value="date">DATE CREATED FILTER</option>
             </select>
             <img src="/images/Vector 2.svg" alt="">
@@ -19,6 +20,25 @@
 
 <script>
 export default {
+    data(){
+        return {
+            searchType : "data",
+            start_date : null,
+            end_date: null,
+            search: null
+        }
+    },
+    methods:{
+        emptyInputs(){
+            this.search = null
+            this.start_date = null
+            this.end_date = null
+            this.submit()
+        },
+        submit(){
+            this.$router.push({ name: this.$route.name, params:{ page:1, search: this.search, start_date: this.start_date, end_date: this.end_date } })
+        }
+    },
 }
 </script>
 
@@ -65,12 +85,11 @@ export default {
         flex-grow: 1;
         height: 49px;
         white-space: nowrap;
-        display: none;
         align-items: center;
         margin-right: 24px;
     }
     .filterInput input{
-        width: 100%;
+        width: calc(50% - 30px);
         display: inline;
         height: 100%;
         border: none;
@@ -79,6 +98,9 @@ export default {
         box-shadow: 0px 0px 5px  rgba(0,0,0,0.2);
         border-radius: 5px;
         padding: 0px 10px;
+    }
+    .filterInput input:last-child{
+        margin: 0px 20px;
     }
     /* search select */
     .searchTypeSelect{

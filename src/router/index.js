@@ -5,10 +5,15 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/countries/:page',
+      path: '/',
+      name: 'home',
+      redirect: '/countries/1'
+    },
+    {
+      path: '/countries/:page/:search?/:start_date?/:end_date?',
       name: 'countries',
       component: Countries,
-      props: (route) => ({ page: route.params.page || 1 })
+      props: true
     },
   ]
 })

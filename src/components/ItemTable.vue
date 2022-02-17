@@ -10,8 +10,8 @@
                         <div v-if="index === 0" class="nameCollHeader">
                             {{attribute.collName}}
                             <div class="sortButtons" id="sortButtons">
-                                <button data-sort="asc" id="sortAscendingButton" onclick="sort(this);"><img src="/images/Vector 2.2.svg" alt=""></button>
-                                <button data-sort="desc" id="sortDescendingButton" onclick="sort(this);"><img src="/images/Vector 2.1.svg" alt=""></button>  
+                                <button @click="sort('acs')" :class="{'selected' : order == 'acs'}"><img src="/images/Vector 2.2.svg" alt=""></button>
+                                <button  @click="sort('desc') " :class="{'selected' : order == 'desc'}"><img src="/images/Vector 2.1.svg" alt=""></button>  
                             </div>
                         </div>
                     </th>
@@ -30,7 +30,18 @@
 
 <script>
 export default {
-    props:['items', 'attributes']
+    props:['items', 'attributes'],
+    data(){
+        return {
+            order : null
+        }
+    },
+    methods:{
+        sort(order){
+            this.order = order
+            this.$emit('sort', order)
+        }
+    }
 }
 </script>
 
