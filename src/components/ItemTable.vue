@@ -15,12 +15,23 @@
                             </div>
                         </div>
                     </th>
+                    <th>
+                        Veiksmai
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="item in items" :key="item.id">
                     <td v-for="attribute in attributes" :key="attribute.apiKey + item.id">
                         {{item['attributes'][attribute.apiKey]}}
+                    </td>
+                    <td class="actionCell">
+                        <button class="actionBtn" @click="$emit('edit', item['id'])">
+                            <img src="/images/Edit.svg">
+                        </button>
+                        <button class="actionBtn vLine" @click="$emit('delete', item['id'])">
+                            <img src="/images/Trash.svg">
+                        </button>
                     </td>
                 </tr>
             </tbody>

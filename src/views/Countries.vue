@@ -7,9 +7,9 @@
 
     <template #body>
       <search-bar/>
-      <item-table :items="items" :attributes="attributes" @sort="(order) => this.order = order"/>
+      <item-table :items="items" :attributes="attributes" @sort="(order) => this.order = order" @edit="(id) => edit(id)" @delete="(id) => deleteItem(id)"/>
       <pagination-row v-if="paginationLinks.length > 3" :links="paginationLinks" :currentProps="this.passProps"/>
-      <countries-form v-show="showForm" @close="this.showForm = false"/>
+      <countries-form v-show="showForm" :id="editId" @close="closeForm()" @submited="formSubmited()"/>
     </template>
 
   </whole-page-layout>
@@ -32,20 +32,21 @@ export default {
   props: ['page','search', 'start_date', 'end_date'],
   data(){
     return{
-      response : null,
+      response : [],
       order : null,
       attributes : [
         {apiKey: 'name', collName: 'pavadinimas'},
         {apiKey: 'area', collName: 'užimamas plotas'},
         {apiKey: 'population', collName: 'gyventojų skaičius'},
         {apiKey: 'phone_code', collName: 'šalies tel. kodas'},
-      ]
+      ],
+      editId: null
     }
   },
   computed:{
     items(){
-      if(!this.response) return []
-      else if(this.order !== null){
+      // sorting
+      if(this.order !== null){
         this.response['data'].sort((a, b) => {
             if(a.attributes.name == b.attributes.name){
               return 0
@@ -59,8 +60,8 @@ export default {
       return this.response['data']
     },
     paginationLinks(){
-      if(!this.response) return []
-      else return this.response['meta']['links']
+      if(this.response.length < 1) return []
+      return this.response['meta']['links']
     },
     passProps(){
       return {page: this.page, search: this.search, start_date: this.start_date, end_date: this.end_date}
@@ -71,13 +72,33 @@ export default {
       this.axios.get('https://akademija.teltonika.lt/countries_api/api/countries', { params: {page: this.page, search: this.search, start_date: this.start_date, end_date: this.end_date }})
         .then(response => this.response = response.data)
         .catch(error => alert(error.message))
+    },
+    closeForm(){
+      this.showForm = false;
+      this.editId = null
+    },
+    edit(id){
+      this.editId = id
+      this.showForm = true
+    },
+    deleteItem(id){
+      this.axios.delete('https://akademija.teltonika.lt/countries_api/api/countries/'+id)
+        .then(response => {
+          this.requestItems();
+          alert(response.data.message)
+        })
+        .catch(error => alert(error.message))
+    },
+    formSubmited(){
+      this.closeForm()
+      this.requestItems()
     }
   },
   mounted(){
-    this.requestItems();
+    this.requestItems()
   },
   updated(){
-    this.requestItems();
+    this.requestItems()
   },
   components:{
     WholePageLayout,

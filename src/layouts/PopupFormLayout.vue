@@ -3,32 +3,11 @@
         <div class="editPopupInner">
             <div class="formContainer">
                 <div class="closeButtonContainer">
-                    <button class="closeButton" onclick="editForm.closeForm()">
+                    <button class="closeButton" @click="this.$emit('close')">
                         <img src="/images/x.svg" alt="">
                     </button>
                 </div>
-                <form method="PUT" action="https://akademija.teltonika.lt/api4/index.php/cities/0" class="editForm" id="editForm">
-                    <h2 id="formHeader">PRIDĖTI ŠALĮ</h2>
-                    <fieldset>
-                        <legend>Pavadinimas</legend>
-                        <input type="text" name="name">
-                    </fieldset>
-                    <fieldset>
-                        <legend>Užimamas plotas</legend>
-                        <input type="text" name="area">
-                    </fieldset>
-                    <fieldset>
-                        <legend>Gyventojų skaičius</legend>
-                        <input type="text" name="population">
-                    </fieldset>
-                    <fieldset>
-                        <legend>Miesto Pašto kodas</legend>
-                        <input type="text" name="calling_code">
-                    </fieldset>
-                    <div class="submitButtonContainer">
-                        <button type="button" class="submitButton" id="submitButton">SAUGOTI</button>
-                    </div>
-                </form>
+                <slot/>
             </div>
         </div>
     </div>
@@ -125,6 +104,9 @@ export default {
         line-height: 26px; 
         color: #969696;
     }
+    .submitButton:hover{
+        color: skyblue;
+    }
     /* fielset */
     .editForm fieldset{
         border-color: #969696;
@@ -134,12 +116,12 @@ export default {
         width: 374px;
         height: 42px;
         padding: 0px 5px 3.3px 0px;
-
     }
-    .editForm fieldset{
+
+    .formField{
         margin-bottom: 15px;
     }
-    .editForm fieldset:last-child{
+    .formField:last-child{
         margin-bottom: 0px;
     }
     .editForm legend{
