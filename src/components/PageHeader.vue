@@ -41,7 +41,7 @@ export default {
         text-transform: uppercase;
         margin: 0px;
     }
-        /* add button */
+    /* add button */
     .addElement {
         width:44px;
         height:44px;
@@ -61,5 +61,11 @@ export default {
         height: 18.45px;
         position: relative;
         margin: 0 auto;
+    }
+    .addElement:hover img{
+        filter: brightness(0) saturate(100%) invert(17%) sepia(100%) saturate(2224%) hue-rotate(197deg) brightness(99%) contrast(101%);
+    }
+    .addElement:hover {
+        box-shadow: 0px 0px 5px  #0054A6;
     }
 </style>

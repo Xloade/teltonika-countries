@@ -36,9 +36,18 @@ export default {
             this.submit()
         },
         submit(){
-            this.$router.push({ name: this.$route.name, params:{ page:1, search: this.search, start_date: this.start_date, end_date: this.end_date } })
+            this.$router.push({ name: this.$route.name, params:{ page:1}, query:this.query })
         }
     },
+    computed:{
+        query(){
+            let props = Object()
+            if(this.search) props.search = this.search
+            if(this.start_date) props.start_date = this.start_date
+            if(this.end_date) props.end_date = this.end_date
+            return props
+        }
+    }
 }
 </script>
 

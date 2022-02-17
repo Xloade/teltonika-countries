@@ -8,7 +8,7 @@
     <template #body>
       <search-bar/>
       <item-table :items="items" :attributes="attributes" @sort="(order) => this.order = order" @edit="(id) => edit(id)" @delete="(id) => deleteItem(id)"/>
-      <pagination-row v-if="paginationLinks.length > 3" :links="paginationLinks" :currentProps="this.passProps"/>
+      <pagination-row v-if="paginationLinks.length > 3" :links="paginationLinks" :currentQuery="this.passQuerry"/>
       <countries-form v-show="showForm" :id="editId" @close="closeForm()" @submited="formSubmited()"/>
     </template>
 
@@ -29,7 +29,7 @@ import { computed } from '@vue/runtime-core'
 
 export default {
   mixins:[TableViewMixin],
-  props: ['page','search', 'start_date', 'end_date'],
+  props: ['page'],
   data(){
     return{
       response : [],
@@ -40,7 +40,10 @@ export default {
         {apiKey: 'population', collName: 'gyventojų skaičius'},
         {apiKey: 'phone_code', collName: 'šalies tel. kodas'},
       ],
-      editId: null
+      editId : null,
+      search : null,
+      start_date : null,
+      end_date : null,
     }
   },
   computed:{
@@ -63,8 +66,12 @@ export default {
       if(this.response.length < 1) return []
       return this.response['meta']['links']
     },
-    passProps(){
-      return {page: this.page, search: this.search, start_date: this.start_date, end_date: this.end_date}
+    passQuerry(){
+      let query = {}
+      if(this.search) query.search = this.search
+      if(this.start_date) query.start_date = this.start_date
+      if(this.end_date) query.end_date = this.end_date
+      return query
     }
   },
   methods:{
@@ -92,12 +99,19 @@ export default {
     formSubmited(){
       this.closeForm()
       this.requestItems()
+    },
+    setFromQuery(){
+      this.search = this.$route.query.search
+      this.start_date = this.$route.query.start_date
+      this.end_date = this.$route.query.end_date
     }
   },
   mounted(){
+    this.setFromQuery()
     this.requestItems()
   },
   updated(){
+    this.setFromQuery()
     this.requestItems()
   },
   components:{

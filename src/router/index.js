@@ -10,7 +10,7 @@ const router = createRouter({
       redirect: '/countries/1'
     },
     {
-      path: '/countries/:page/:search?/:start_date?/:end_date?',
+      path: '/countries/:page',
       name: 'countries',
       component: Countries,
       props: true

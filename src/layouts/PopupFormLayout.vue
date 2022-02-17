@@ -81,6 +81,9 @@ export default {
         width: 14px;
         height: 14px;
     }
+    .closeButton img:hover{
+        filter: brightness(0) saturate(100%) invert(17%) sepia(100%) saturate(2224%) hue-rotate(197deg) brightness(99%) contrast(101%);
+    }
     .submitButtonContainer{
         width: 100%;
         display: flex;
@@ -105,7 +108,7 @@ export default {
         color: #969696;
     }
     .submitButton:hover{
-        color: skyblue;
+        color: #0054A6;
     }
     /* fielset */
     .editForm fieldset{

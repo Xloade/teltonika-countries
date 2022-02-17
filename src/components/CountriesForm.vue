@@ -5,7 +5,7 @@
       class="editForm"
       id="form"
     >
-      <h2 id="formHeader">PRIDĖTI ŠALĮ</h2>
+      <h2 id="formHeader">{{id===null?'PRIDETI':'REDAGUOTI'}} ŠALĮ</h2>
       <div class="formField" v-for="attribute in attributes" :key="attribute.apiKey">
         <fieldset>
           <legend>{{attribute.collName}}</legend>
@@ -97,9 +97,6 @@ export default {
 };
 </script>
 <style>
-.errors{
-
-}
 .errors .error{
   font-size: 12px;
   line-height: 14px;
