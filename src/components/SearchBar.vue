@@ -41,11 +41,9 @@ export default {
     },
     computed:{
         query(){
-            let props = Object()
-            if(this.search) props.search = this.search
-            if(this.start_date) props.start_date = this.start_date
-            if(this.end_date) props.end_date = this.end_date
-            return props
+            let query = {search: this.search, start_date = this.start_date, end_date = this.end_date}
+            query.foreach((key, value) => {if(value === null) delete query[key]})
+            return query
         }
     }
 }

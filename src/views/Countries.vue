@@ -25,7 +25,6 @@ import PaginationRow from '../components/PaginationRow.vue'
 import CountriesForm from '../components/CountriesForm.vue/'
 
 import TableViewMixin from '../Mixins/TableViewMixin.vue'
-import { computed } from '@vue/runtime-core'
 
 export default {
   mixins:[TableViewMixin],
@@ -67,10 +66,9 @@ export default {
       return this.response['meta']['links']
     },
     passQuerry(){
-      let query = {}
-      if(this.search) query.search = this.search
-      if(this.start_date) query.start_date = this.start_date
-      if(this.end_date) query.end_date = this.end_date
+
+      let query = {search: this.search, start_date = this.start_date, end_date = this.end_date}
+      query.foreach((key, value) => {if(value === null) delete query[key]})
       return query
     }
   },
