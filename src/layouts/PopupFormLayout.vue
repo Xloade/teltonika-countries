@@ -109,6 +109,7 @@ export default {
     }
     .submitButton:hover{
         color: #0054A6;
+        box-shadow: 0px 0px 5px  #0054A6;
     }
     /* fielset */
     .editForm fieldset{
