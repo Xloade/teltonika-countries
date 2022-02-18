@@ -1,8 +1,8 @@
 <template>
   <div class="navbar">
-      <a href="/">
+      <router-link :to="{name:'home'}">
           <img src="/images/Vector.svg" alt="">
-      </a>
+      </router-link >
   </div>
   <div class="container">
     <slot name="header"/>
