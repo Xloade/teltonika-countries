@@ -36,11 +36,11 @@ export default {
             this.submit()
         },
         submit(){
-            this.$router.push({ name: this.$route.name, params:{ page:1}, query:this.query })
+            this.$router.push({ name: this.$route.name, params:{ page:1}, query:this.cleanQuery })
         }
     },
     computed:{
-        query(){
+        cleanQuery(){
             let query = {search: this.search, start_date: this.start_date, end_date: this.end_date}
             Object.keys(query).forEach(key => {if(query[key] === null) delete query[key]})
             return query

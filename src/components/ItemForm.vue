@@ -30,15 +30,9 @@
 <script>
 import PopupFormLayout from "../layouts/PopupFormLayout.vue";
 export default {
-    props:["id"],
+    props:["id", "apiRoute", "attributes"],
     data(){
         return{
-            attributes : [
-                {apiKey: 'name', collName: 'Pavadinimas'},
-                {apiKey: 'area', collName: 'Užimamas plotas',},
-                {apiKey: 'population', collName: 'Gyventojų skaičius'},
-                {apiKey: 'phone_code', collName: 'Šalies tel. kodas'},
-            ],
             validationErrors: Object()
         }
     },
@@ -50,7 +44,7 @@ export default {
         let data = {data:{attributes:formDataArray}}
         this.axios({
           method:this.id===null?"POST":"PUT",
-          url:"https://akademija.teltonika.lt/countries_api/api/countries"+( this.id===null?"":"/"+this.id),
+          url: this.apiRoute+( this.id===null?"":"/"+this.id),
           data:data,
           headers : {
             "Content-Type" : "application/json"
@@ -71,7 +65,7 @@ export default {
       },
       getEditFields(){
         if(this.id !== null){
-          this.axios.get("https://akademija.teltonika.lt/countries_api/api/countries/"+this.id)
+          this.axios.get(this.apiRoute+"/"+this.id)
           .then((message)=>{
             this.attributes.forEach((attribute) => attribute.formField = message.data.data.attributes[attribute.apiKey])
           })
@@ -96,14 +90,91 @@ export default {
     }
 };
 </script>
-<style>
-.errors .error{
-  font-size: 12px;
-  line-height: 14px;
-  margin: 4px 0px 4px 4px;
-  color:red;
-}
-.errors .error:last-child{
-  margin-bottom: 0px;
-}
+<style scoped>
+/* header */
+  h2{
+      margin-top: 0px;
+      margin-bottom: 28px;
+
+      font-family: Oswald; 
+      font-size: 25px; 
+      font-style: normal; 
+      font-variant: normal; 
+      font-weight: 400; 
+      line-height: 37.05px; 
+      color: #5C5C5C;
+  }
+  /* form */
+  .editForm{
+      margin: 0px 46px 35px 46px;
+  }
+  /* submit button */
+  .submitButtonContainer{
+      width: 100%;
+      display: flex;
+      flex-direction: row-reverse;
+  }
+  .submitButton{
+      margin-top: 28px;
+      width: 92px;
+      height: 42px;
+      border: none;
+      border-radius: 5px;
+      background-color: transparent;
+      box-shadow: 0px 0px 5px  rgba(0,0,0,0.2);
+      padding:2px 2px;
+
+      font-family: Oswald; 
+      font-size: 18px; 
+      font-style: normal; 
+      font-variant: normal; 
+      font-weight: 400; 
+      line-height: 26px; 
+      color: #969696;
+  }
+  .submitButton:hover{
+      color: #0054A6;
+      box-shadow: 0px 0px 5px  #0054A6;
+  }
+  /* fielset */
+  fieldset{
+      border-color: #969696;
+      border-width: 0.75px;
+      border-radius: 7px;
+
+      width: 374px;
+      height: 42px;
+      padding: 0px 5px 3.3px 0px;
+  }
+
+  .formField{
+      margin-bottom: 15px;
+  }
+  .formField:last-child{
+      margin-bottom: 0px;
+  }
+  legend{
+      margin-left: 29px;
+  }
+  /* inputs */
+  input{
+      width: calc(100% - 5px);
+      height: calc(100% - 2px);
+      border: none;
+      border-radius: 5px;
+      padding: 2px 5px;
+  }
+  input:focus{
+      outline: none;
+  }
+  /* errors */
+  .errors .error{
+    font-size: 12px;
+    line-height: 14px;
+    margin: 4px 0px 4px 4px;
+    color:red;
+  }
+  .errors .error:last-child{
+    margin-bottom: 0px;
+  }
 </style>

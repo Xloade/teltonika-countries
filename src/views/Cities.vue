@@ -1,5 +1,5 @@
 <template>
-  <table-view :page="page" :attributes="attributes" headerName="Šalys" :query="query" :apiRoute="apiRoute"/>
+  <table-view :page="page" :attributes="attributes" :headerName="name" :query="query" :apiRoute="apiRoute"/>
 </template>
 
 
@@ -7,19 +7,25 @@
 import TableView from '../components/TableView.vue'
 
 export default {
-  props: ['page'],
+  props: ['itemId', 'page'],
   data(){
     return{
       attributes : [
         {apiKey: 'name', collName: 'pavadinimas', children:'cities'},
         {apiKey: 'area', collName: 'užimamas plotas'},
         {apiKey: 'population', collName: 'gyventojų skaičius'},
-        {apiKey: 'phone_code', collName: 'šalies tel. kodas'},
+        {apiKey: 'postal_code', collName: 'Pašto kodas'},
       ],
-      query:{}
+      query:{},
+      name: null
     }
   },
   methods:{
+    requestName(){
+      this.axios.get('https://akademija.teltonika.lt/countries_api/api/countries/'+this.itemId)
+        .then(response => this.name = response.data.data.attributes.name)
+        .catch(error => alert(error.message))
+    },
     queryFromRouter(){
       let search = this.$route.query.search
       let start_date = this.$route.query.start_date
@@ -29,16 +35,15 @@ export default {
       Object.keys(rez).forEach(key => {if(rez[key] === null) delete rez[key]})
       return rez
     },
-
   },
   computed:{
     apiRoute(){
-      return 'https://akademija.teltonika.lt/countries_api/api/countries'
+      return 'https://akademija.teltonika.lt/countries_api/api/countries/'+this.itemId+'/cities'
     }
   },
   mounted(){
     this.query = this.queryFromRouter()
-    // this.requestItems()
+    this.requestName()
   },
   updated(){
     // this.requestItems()

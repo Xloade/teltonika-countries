@@ -23,7 +23,15 @@
             <tbody>
                 <tr v-for="item in items" :key="item.id">
                     <td v-for="attribute in attributes" :key="attribute.apiKey + item.id">
-                        {{item['attributes'][attribute.apiKey]}}
+                        <router-link 
+                            v-if="attribute.hasOwnProperty('children')"
+                            :to="{ name: attribute.children, params:{ itemId: item.id, page: 1}}"
+                        >
+                            {{item['attributes'][attribute.apiKey]}}
+                        </router-link>
+                        <template v-else>
+                            {{item['attributes'][attribute.apiKey]}}
+                        </template>
                     </td>
                     <td class="actionCell">
                         <button class="actionBtn" @click="$emit('edit', item['id'])">
