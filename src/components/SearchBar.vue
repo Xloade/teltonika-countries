@@ -41,8 +41,8 @@ export default {
     },
     computed:{
         query(){
-            let query = {search: this.search, start_date = this.start_date, end_date = this.end_date}
-            query.foreach((key, value) => {if(value === null) delete query[key]})
+            let query = {search: this.search, start_date: this.start_date, end_date: this.end_date}
+            Object.keys(query).forEach(key => {if(query[key] === null) delete query[key]})
             return query
         }
     }
