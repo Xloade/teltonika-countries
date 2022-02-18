@@ -24,16 +24,15 @@ import ItemTable from '../components/ItemTable.vue'
 import PaginationRow from '../components/PaginationRow.vue'
 import ItemForm from '../components/ItemForm.vue/'
 
-import TableViewMixin from '../Mixins/TableViewMixin.vue'
 
 export default {
-  mixins:[TableViewMixin],
   props: ['page', 'headerName','attributes', 'query', 'apiRoute'],
   data(){
     return{
       response : [],
       order : null,
-      editId : null
+      editId : null,
+      showForm: false,
     }
   },
   computed:{
