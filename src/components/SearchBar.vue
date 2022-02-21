@@ -10,8 +10,8 @@
         </div>
         <div class="searchTypeSelectContainer">
             <select v-model="searchType" autocomplete="off" class="searchTypeSelect" @change="emptyInputs()">
-                <option value="data">DATA FILTER</option>
-                <option value="date">DATE CREATED FILTER</option>
+                <option value="data">PAIEŠKA PAGAL RAKTAŽODĮ</option>
+                <option value="date">PAIEŠKA PAGAL DATĄ</option>
             </select>
             <img src="/images/Vector 2.svg" alt="">
         </div>
