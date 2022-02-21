@@ -1,0 +1,18 @@
+{
+    "The country has been deleted.": "Šalis buvo ištrinta.",
+    "The city has been deleted.": "Miestas buvo ištrinta.",
+    "The country has been added.": "Šalis buvo prideta.",
+    "The country has beed updated.": "Šalis buvo atnaujinta.",
+    "The city has been added.": "Miestas buvo pridetas",
+    "The city has beed updated.": "Miestas buvo atnaujintas.",
+    "form_validation_error": "Laukas \"{field}\" {rule}.",
+    "name": "pavadinimas",
+    "area": "užimamas plotas",
+    "population": "gyventojų skaičius",
+    "phone": "šalies tel. kodas",
+    "postal code": "pašto kodas",
+    "field is required": "turi buti užpildytas",
+    "must be a number": "turi buti skaičius",
+    "Network Error": "Negalima susisiekti su serveriu.",
+    "Request failed with status code 404": "Elementas buvo nerastas arba kita tinklo klaida"
+}

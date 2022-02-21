@@ -5,8 +5,8 @@
             <button @click="submit()"><img src="/images/search.svg"></button>
         </div>
         <div v-else id="filterClass" class="filterInput" >
-            <input v-model="start_date" @change="submit()" autocomplete="off" type="text" placeholder="Start date" onfocus="this.type='date'">
-            <input v-model="end_date" @change="submit()" autocomplete="off" type="text" placeholder="End date" onfocus="this.type='date'">
+            <input v-model="start_date" @change="submit()" autocomplete="off" type="text" placeholder="Pradžios data" onfocus="this.type='date'">
+            <input v-model="end_date" @change="submit()" autocomplete="off" type="text" placeholder="Pabaigos data" onfocus="this.type='date'">
         </div>
         <div class="searchTypeSelectContainer">
             <select v-model="searchType" autocomplete="off" class="searchTypeSelect" @change="emptyInputs()">

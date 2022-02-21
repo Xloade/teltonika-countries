@@ -13,7 +13,7 @@
         </fieldset>
         <div v-if="validationErrors.hasOwnProperty('data.attributes.'+attribute.apiKey)" class="errors">
           <p v-for="error in validationErrors['data.attributes.'+attribute.apiKey]" :key="error" class="error">
-            {{error}}
+            {{translateValidation(error)}}
           </p>
         </div>
       </div>
@@ -52,14 +52,14 @@ export default {
           })
           .then((message)=>{
             this.$emit("submited")
-            alert(message.data.message)
+            alert(this.$t(message.data.message))
           })
           .catch((error)=>{
             if(error.response.status === 422){
               this.validationErrors = error.response.data.errors
             }
             else{
-              alert(error.response.data.message)
+              alert(this.$t(error.response.data.message))
             }
           })
       },
@@ -70,9 +70,14 @@ export default {
             this.attributes.forEach((attribute) => attribute.formField = message.data.data.attributes[attribute.apiKey])
           })
           .catch((error)=>{
-            alert(error.message)
+            alert(this.$t(error.message))
           })
         }
+      },
+      translateValidation(text){
+        const found = text.match(/The data.attributes.(.+) (field is required|must be a number)./);
+        if(found === null) return text
+        return this.$t("form_validation_error", {field: this.$t(found[1]), rule: this.$t(found[2])})
       }
     },
     computed:{

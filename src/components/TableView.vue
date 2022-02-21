@@ -60,7 +60,7 @@ export default {
     requestItems(){
       this.axios.get(this.apiRoute, { params: {page: this.page, ...this.query }})
         .then(response => this.response = response.data)
-        .catch(error => alert(error.message))
+        .catch(error => alert(this.$t(error.message)))
     },
     closeForm(){
       this.showForm = false;
@@ -74,17 +74,14 @@ export default {
       this.axios.delete(this.apiRoute +'/'+id)
         .then(response => {
           this.requestItems();
-          alert(response.data.message)
+          alert(this.$t(response.data.message))
         })
-        .catch(error => alert(error.message))
+        .catch(error => alert(this.$t(error.message)))
     },
     formSubmited(){
       this.closeForm()
       this.requestItems()
     }
-  },
-  mounted(){
-    this.requestItems()
   },
   updated(){
     this.requestItems()

@@ -24,7 +24,7 @@ export default {
     requestName(){
       this.axios.get(import.meta.env.VITE_API_ROUTE+'/countries/'+this.itemId)
         .then(response => this.name = response.data.data.attributes.name)
-        .catch(error => alert(error.message))
+        .catch(error => alert(this.$t(error.message)))
     },
     queryFromRouter(){
       let search = this.$route.query.search
