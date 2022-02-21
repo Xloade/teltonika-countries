@@ -34,11 +34,11 @@
                         </template>
                     </td>
                     <td class="actionCell">
-                        <button class="actionBtn" @click="$emit('edit', item['id'])">
-                            <img src="/images/Edit.svg">
+                        <button class="actionBtn" @click="deleteItem(item['id'])">
+                            <img src="/images/trash.svg">
                         </button>
-                        <button class="actionBtn vLine" @click="$emit('delete', item['id'])">
-                            <img src="/images/Trash.svg">
+                        <button class="actionBtn vLine" @click="$emit('edit', item['id'])">
+                            <img src="/images/Edit.svg">
                         </button>
                     </td>
                 </tr>
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import { warn } from '@vue/runtime-core'
 export default {
     props:['items', 'attributes'],
     data(){
@@ -59,6 +60,9 @@ export default {
         sort(order){
             this.order = order
             this.$emit('sort', order)
+        },
+        deleteItem(id){
+            if(confirm("Ar tikrai norite ištrinti įrašą?")) this.$emit('delete', id)
         }
     }
 }
@@ -71,6 +75,7 @@ export default {
     }
     .contentTableContainer thead{
         text-transform: uppercase;
+        text-align: left;
     }
     .contentTableContainer{
         overflow-x: auto;
