@@ -22,7 +22,7 @@ export default {
   },
   methods:{
     requestName(){
-      this.axios.get('https://akademija.teltonika.lt/countries_api/api/countries/'+this.itemId)
+      this.axios.get(import.meta.env.VITE_API_ROUTE+'/countries/'+this.itemId)
         .then(response => this.name = response.data.data.attributes.name)
         .catch(error => alert(error.message))
     },
@@ -38,7 +38,7 @@ export default {
   },
   computed:{
     apiRoute(){
-      return 'https://akademija.teltonika.lt/countries_api/api/countries/'+this.itemId+'/cities'
+      return import.meta.env.VITE_API_ROUTE+'/countries/'+this.itemId+'/cities'
     }
   },
   mounted(){

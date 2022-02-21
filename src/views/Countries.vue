@@ -33,7 +33,7 @@ export default {
   },
   computed:{
     apiRoute(){
-      return 'https://akademija.teltonika.lt/countries_api/api/countries'
+      return import.meta.env.VITE_API_ROUTE+'/countries'
     }
   },
   mounted(){
